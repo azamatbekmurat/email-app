@@ -10,7 +10,7 @@ import firebase from 'firebase';
 
 function SendMail() {
 
-    const { register, handleSubmit, watch, errors } = useForm()
+    const { register, handleSubmit, watch, formState: { errors } } = useForm()
     const dispatch = useDispatch()
 
     const onSubmit = (formData) => {
@@ -39,18 +39,18 @@ function SendMail() {
 
             <form onSubmit={handleSubmit(onSubmit)}>
 
-                <input name="to" placeholder="To" type="email" ref={register({ required: true })} />
+                <input placeholder="To" type="email" {...register("to", { required: true })} />
                 {errors.to && <p className="sendMail__error">To is required!</p>}
 
-                <input name="subject" placeholder='Subject' type="text" ref={register({ required: true })} />
+                <input placeholder='Subject' type="text" {...register("subject", { required: true })} />
                 {errors.subject && (<p className="sendMail__error">Subject is required!</p>)}
 
                 <input
-                    name="message"
+                    
                     placeholder='Message...'
                     type="text"
                     className="sendMail__message"
-                    ref={register({ required: true })}
+                    {...register("message", { required: true })}
                 />
                 {errors.message && (<p className="sendMail__error">Message is required!</p>)}
                 
